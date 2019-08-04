@@ -103,11 +103,11 @@ async def kang(args):
                     await conv.send_message(packname)
                     await conv.get_response()
                     if is_anim:
-                        file.seek(0)
-                        await conv.send_file(file, force_document=True)
+                        await conv.send_file('AnimatedSticker.tgs', force_document=True)
                         # await bot.forward_messages('Stickers', [message.id], args.chat_id)
                     else:
-                        await conv.send_file(anim_sticker, force_document=True)
+                        file.seek(0)
+                        await conv.send_file(file, force_document=True)
                     await conv.get_response()
                     await conv.send_message(emoji)
                     # Ensure user doesn't get spamming notifications
@@ -129,7 +129,8 @@ async def kang(args):
                     # Ensure user doesn't get spamming notifications
                     await bot.send_read_acknowledge(conv.chat_id)
                     if is_anim:
-                        await bot.forward_messages('Stickers', [message.id], args.chat_id)
+                        await conv.send_file('AnimatedSticker.tgs', force_document=True)
+                        #await bot.forward_messages('Stickers', [message.id], args.chat_id)
                     else:
                         file.seek(0)
                         await conv.send_file(file, force_document=True)
