@@ -46,6 +46,7 @@ async def kang(args):
             elif (DocumentAttributeFilename(file_name='AnimatedSticker.tgs')
                   in message.media.document.attributes):
                 await bot.download_file(message.media.document, 'AnimatedSticker.tgs')
+                
                 # The attributes list of animated stickers is not consistent
                 # for some reason, so we look for the emoji in all possible
                 # parts of the attributes (hacky, but consistent.)
@@ -112,7 +113,6 @@ async def kang(args):
                     if is_anim:
                         await conv.send_file('AnimatedSticker.tgs', force_document=True)
                         remove('AnimatedSticker.tgs')
-                        # await bot.forward_messages('Stickers', [message.id], args.chat_id)
                     else:
                         file.seek(0)
                         await conv.send_file(file, force_document=True)
