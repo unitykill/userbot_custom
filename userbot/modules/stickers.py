@@ -45,11 +45,11 @@ async def kang(args):
                     emojibypass = True
             elif (DocumentAttributeFilename(file_name='AnimatedSticker.tgs')
                   in message.media.document.attributes):
-                photo = io.BytesIO()
-                await bot.download_file(message.media.document, photo)
+                anim_sticker = await bot.download_file(message.media.document, 'AnimatedSticker.tgs')
                 emoji = message.media.document.attributes[0].alt
                 emojibypass = True
                 is_anim = True
+                photo = 1
             else:
                 await args.edit("`Unsupported File!`")
                 return
@@ -85,7 +85,6 @@ async def kang(args):
                 file.name = "sticker.png"
                 image.save(file, "PNG")
             else:
-                file.name = "sticker.tgs"
                 packname += "_anim"
                 packnick += " animated"
                 cmd = '/newanimated'
@@ -108,8 +107,7 @@ async def kang(args):
                         await conv.send_file(file, force_document=True)
                         # await bot.forward_messages('Stickers', [message.id], args.chat_id)
                     else:
-                        file.seek(0)
-                        await conv.send_file(file, force_document=True)
+                        await conv.send_file(anim_sticker, force_document=True)
                     await conv.get_response()
                     await conv.send_message(emoji)
                     # Ensure user doesn't get spamming notifications
